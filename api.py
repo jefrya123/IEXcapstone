@@ -1,4 +1,4 @@
-"""Flask API for interacting with Titanic passenger data."""
+"""Flask API."""
 
 import sqlite3
 from flask import Flask, jsonify, request
@@ -35,12 +35,7 @@ def add_passenger():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        """
-        INSERT INTO titanic_data (
-            PassengerId, Survived, Pclass, Name, Sex, Age,
-            SibSp, Parch, Ticket, Fare, Cabin, Embarked
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        """,
+        """INSERT INTO titanic_data""",
         (
             data.get("PassengerId"),
             data.get("Survived"),
@@ -58,8 +53,38 @@ def add_passenger():
     )
     conn.commit()
     conn.close()
-    return jsonify({"message": "Passenger added successfully"}), 201
+    return jsonify({"message": "Passenger added"}), 201
 
+@app.route("/passengers/<int:passenger_id>", methods=["PUT"])
+def update_passenger(passenger_id):
+    """Update an existing passenger in the database."""
+    data = request.get_json()
+
+    if not data:
+        return jsonify({"error": "Missing JSON body"}), 400
+
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute(
+        """UPDATE titanic_data SET"""
+        (
+            data.get("Survived"),
+            data.get("Pclass"),
+            data.get("Name"),
+            data.get("Sex"),
+            data.get("Age"),
+            data.get("SibSp"),
+            data.get("Parch"),
+            data.get("Ticket"),
+            data.get("Fare"),
+            data.get("Cabin"),
+            data.get("Embarked"),
+            passenger_id
+        ),
+    )
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Passenger updated"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
