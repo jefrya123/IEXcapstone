@@ -35,7 +35,11 @@ def add_passenger():
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        """INSERT INTO titanic_data""",
+        """ 
+        INSERT INTO titanic_data (
+            PassengerId, Survived, Pclass, Name, Sex, Age, SibSp, Parch, Ticket, Fare, Cabin, Embarked
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) 
+        """,
         (
             data.get("PassengerId"),
             data.get("Survived"),
@@ -101,6 +105,16 @@ def update_passenger(passenger_id):
     conn.commit()
     conn.close()
     return jsonify({"message": "Passenger updated"}), 200
+
+@app.route("/passengers/<int:passenger_id>", methods=["DELETE"])
+def delete_passenger(passenger_id):
+    """ Delete a passenger. """
+    conn = get_db_connection()
+    cursor = conn.cursor()
+    cursor.execute("Delete FROM titanic_Data WHERE PassengerId = ?", (passenger_id,))
+    conn.commit()
+    conn.close()
+    return jsonify({"message": "Passenger deleted"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
