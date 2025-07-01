@@ -65,8 +65,24 @@ def update_passenger(passenger_id):
 
     conn = get_db_connection()
     cursor = conn.cursor()
+    
+    sql = """
+         UPDATE titanic_data SET
+            Survived = ?,
+            Pclass = ?,
+            Name = ?,
+            Sex = ?,
+            Age = ?,
+            SibSp = ?,
+            Parch = ?,
+            Ticket = ?,
+            Fare = ?,
+            Cabin = ?,
+            Embarked = ?
+            WHERE PassengerId = ? 
+    """
     cursor.execute(
-        """UPDATE titanic_data SET"""
+        sql,
         (
             data.get("Survived"),
             data.get("Pclass"),
@@ -88,3 +104,4 @@ def update_passenger(passenger_id):
 
 if __name__ == "__main__":
     app.run(debug=True)
+
