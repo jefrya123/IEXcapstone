@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  flask:
+    build: .
+    container_name: flask_api
+    ports:
+      - "5000:5000"
+    volumes:
+      - .:/app
+    command: python api.py
+
+  streamlit:
+    build: .
+    container_name: streamlit_app
+    depends_on:
+      - flask
+    ports:
+      - "8501:8501"
+    volumes:
+      - .:/app
+    working_dir: /app/streamlit_app
+    command: streamlit run app.py --server.port 8501
