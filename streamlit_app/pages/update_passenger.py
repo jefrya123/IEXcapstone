@@ -9,7 +9,7 @@ with st.form("update_passenger_form"):
     survived = st.selectbox("Survived", options=["0", "1"])
     pclass = st.selectbox("Pclass", options=["1", "2", "3"])
     name = st.text_input("Name")
-    sex = st.selectbox("Sex", ["male", ["female"])
+    sex = st.selectbox("Sex", ["male", "female"])
     age = st.number_input("Age", min_value=0.0)
     sibsp = st.number_input("SibSp", min_value=0)
     parch = st.number_input("Parch", min_value=0)
