@@ -8,7 +8,7 @@ st.title("Titanic Data")
 
 #Loading data from API
 try:
-    response = requests.get("http://localhost:5000/passengers")
+    response = requests.get("http://flask_api:5000/passengers")
     if response.status_code == 200:
         passengers = response.json()
         df = pd.DataFrame(passengers)

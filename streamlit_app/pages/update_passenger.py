@@ -34,7 +34,7 @@ if submitted:
         "Embarked": embarked,
     }
 
-    response = requests.put(f"http://localhost:5000/passengers/{passenger_id}", json=payload)
+    response = requests.put(f"http://flask_api:5000/passengers/{passenger_id}", json=payload)
     if response.status_code == 200:
         st.success("Passenger updated successfully!")
     else:

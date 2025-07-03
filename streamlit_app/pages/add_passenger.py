@@ -37,7 +37,7 @@ with st.form("add_passenger_form"):
             embarked: embarked
         }
 
-        response = requests.post("http://localhost:5000/passengers", json=data)
+        response = requests.post("http://flask_api:5000/passengers", json=data)
         if response.status_code == 201:
             st.success("Passenger added successfully!")
         else:

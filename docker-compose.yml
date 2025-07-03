@@ -1,23 +1,29 @@
-version: '3.9'
 
 services:
-  flask:
-    build: .
+  flask_api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: flask_api
     ports:
       - "5000:5000"
+    depends_on:
+      - db
     volumes:
       - .:/app
-    command: python api.py
+    restart: always
 
-  streamlit:
-    build: .
+  streamlit_app:
+    build:
+      context: ./streamlit_app
     container_name: streamlit_app
-    depends_on:
-      - flask
     ports:
       - "8501:8501"
+    depends_on:
+      - flask_api
+    restart: always
+
+  db:
+    image: nouchka/sqlite3:latest
     volumes:
-      - .:/app
-    working_dir: /app/streamlit_app
-    command: streamlit run app.py --server.port 8501
+      - ./titanic.db:/root/titanic.db

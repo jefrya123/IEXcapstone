@@ -7,13 +7,13 @@ st.title("Passenger List")
 
 # Getting Data from API
 try:
-    response = requests.get("http://localhost:5000/passengers")
+    response = requests.get("http://flask_api:5000/passengers")
     if response.status_code == 200:
         passengers = response.json()
         df = pd.DataFrame(passengers)
         st.dataframe(df)
     else:
         st.error("Failed to retieve from API.")
-except requests.expections.ConnectionError:
+except requests.exceptions.ConnectionError:
     st.error("Flask API is not running.")
     
