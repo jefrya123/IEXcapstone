@@ -1,16 +1,10 @@
-
 services:
   flask_api:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ./flask_api
     container_name: flask_api
     ports:
       - "5000:5000"
-    depends_on:
-      - db
-    volumes:
-      - .:/app
     restart: always
 
   streamlit_app:
@@ -22,8 +16,3 @@ services:
     depends_on:
       - flask_api
     restart: always
-
-  db:
-    image: nouchka/sqlite3:latest
-    volumes:
-      - ./titanic.db:/root/titanic.db
