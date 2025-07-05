@@ -1,18 +1,20 @@
 services:
   flask_api:
     build:
-      context: ./flask_api
-    container_name: flask_api
+      context: .
+    command: python flask_api/api.py
     ports:
       - "5000:5000"
-    restart: always
+    volumes:
+      - .:/app
 
   streamlit_app:
     build:
-      context: ./streamlit_app
-    container_name: streamlit_app
+      context: .
+    command: streamlit run streamlit_app/Home.py
     ports:
       - "8501:8501"
     depends_on:
       - flask_api
-    restart: always
+    volumes:
+      - .:/app
