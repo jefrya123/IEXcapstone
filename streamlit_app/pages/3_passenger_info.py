@@ -4,7 +4,6 @@ import pandas as pd
 
 st.set_page_config(page_title="Passenger List")
 st.title("Passenger List")
-st.sidebar.markdown("### 📋 Passengers Info Dashboard")
 
 # Getting Data from API
 try:
