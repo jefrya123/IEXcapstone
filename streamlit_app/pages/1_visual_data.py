@@ -12,7 +12,7 @@ try:
     if response.status_code == 200:
         passengers = response.json()
         df = pd.DataFrame(passengers)
-        st.success("Data loaded successfully!")
+        st.toast("Data loaded successfully!", icon="✅")
     else:
         st.error("Failed to retrieve data from API.")
         st.stop()
@@ -39,9 +39,26 @@ st.pyplot(fig2)
 # -- Gender Distribution --
 st.subheader("Gender Distribution")
 gender_counts = df["Sex"].value_counts()
-st.bar_chart(gender_counts)
+fig3, ax3 = plt.subplots()
+ax3.barh(gender_counts.index, gender_counts.values, color=["lightblue", "lightcoral"])
+ax3.set_xlabel("Number of Passengers")
+ax3.set_ylabel("Gender")
+st.pyplot(fig3)
 
 # -- Embarked Port --
 st.subheader("Embarkation Port Distribution")
+port_map = {"C": "Cherbourg", "Q": "Queenstown", "S": "Southampton"}
+df["Embarked"] = df["Embarked"].map(port_map)
+
 embarked_counts = df["Embarked"].value_counts()
-st.bar_chart(embarked_counts)
+fig4, ax4 = plt.subplots()
+wedges, text, autotexts = ax4.pie(
+    embarked_counts,
+    labels=embarked_counts.index,
+    autopct="%1.1f%%",
+    startangle=140,
+    wedgeprops=dict(width=0.3)
+)
+ax4.axis("equal")
+ax4.axis("equal")
+st.pyplot(fig4)
