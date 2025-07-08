@@ -1,5 +1,4 @@
 # IEXcapstone
-# Titanic Survival Prediction and Passenger Management App
 
 This project is a complete end-to-end data application that includes:
 
@@ -21,7 +20,6 @@ This capstone project helped reinforce a range of important technical skills:
 - REST API design and CRUD operations with Flask
 - Using Streamlit to build interactive web apps and forms
 - Working with Docker and Docker Compose for full-stack development
-- Ensuring data integrity with typed inputs and error handling
 
 ---
 
@@ -72,6 +70,7 @@ Bar charts showing survival rates based on passenger class, sex, and embarkation
 Enter a passenger’s features (class, sex, age, etc.) to predict survival using a trained RandomForestClassifier.
 
 ![Survial Prediction](screenshots/predict_form.png)
+![Survial Results](screenshots/predict_results.png)
 
 
 ### Add Passenger
